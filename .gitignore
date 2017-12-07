@@ -1,4 +1,12 @@
+
+/data/los_alamos/
+
+
+# Generic python gitignore
 .vscode/
+.DS_Store
+
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
