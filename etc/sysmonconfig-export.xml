@@ -352,6 +352,7 @@
 			<Image condition="image">auditpol.exe</Image><!-- Auditpol-->
 			<Image condition="image">qwinsta.exe</Image><!-- Query Remote Sessions-->
 			<Image condition="image">rwinsta.exe</Image><!-- Reset Remote Sessions-->
+			<DestinationHostname condition="contains">.</DestinationHostname>
 			<!--Hack tools hosting-->
 			<DestinationHostname condition="end with">githubusercontent.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
 			<DestinationHostname condition="end with">github.com</DestinationHostname> <!--Github: Malicious tools often loaded from here, not used except by developers-->
