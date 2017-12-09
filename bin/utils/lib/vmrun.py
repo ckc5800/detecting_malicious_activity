@@ -73,7 +73,7 @@ class vmrun:
                     for path in os.environ["PATH"].split(os.pathsep):
                         tmp_file = path + os.sep + "vmrun"
                         if os.path.exists(tmp_file):
-                            self.VMRUN_PATH = tmp_file
+                            self.VMRUN_PATH = tmp_file.replace(" ", "\\ ")
                             break
 
     #
@@ -148,7 +148,7 @@ class vmrun:
         revertToSnapshot         Path to vmx file     Set VM state to a snapshot
                                  Snapshot name
         '''
-        return self.vmrun( 'revertToSnapshot', name )
+        return self.vmrun( 'revertToSnapshot', name)
 
     #
     # RECORD/REPLAY COMMANDS
@@ -195,10 +195,7 @@ class vmrun:
                   "a" : "-activeWindow",
                   "i" : "-interactive" }
 
-        if modes.has_key(mode):
-            return self.vmrun( 'runProgramInGuest', modes[mode], program, *para )
-        else:
-            return "error mode : %s" % mode
+        return self.vmrun( 'runProgramInGuest', modes[mode], program, *para )
 
     # return True/False
     def fileExistsInGuest( self, file ):
