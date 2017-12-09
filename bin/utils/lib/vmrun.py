@@ -10,7 +10,7 @@ __author__      = "Binjo"
 __version__     = "0.1.4"
 __date__        = "2010/08/24"
 __license__     = "GNU GPL v2"
-
+__modified__    = "2017/12/04"
 #
 # Based on vmrun-ruby, Alexander Sotirov <asotirov@determina.com>
 #
