@@ -11847,7 +11847,45 @@ Microsoft-Windows-Sysmon%4Operational.evtx: MS Windows Vista Event Log, <span cl
 <span class="m">00000000</span>: 456c <span class="m">6646</span> 696c <span class="m">6500</span> <span class="m">0000</span> <span class="m">0000</span> <span class="m">0000</span> <span class="m">0000</span>  ElfFile.........
 <span class="m">00000010</span>: <span class="m">0000</span> <span class="m">0000</span> <span class="m">0000</span> <span class="m">0000</span> <span class="m">0100</span> <span class="m">0000</span> <span class="m">0000</span> <span class="m">0000</span>  ................
 </pre></div>
-<h2 id="TODO:-Show-what-the-XML-in-the-evtx-actually-looks-like">TODO: Show what the XML in the evtx actually looks like<a class="anchor-link" href="#TODO:-Show-what-the-XML-in-the-evtx-actually-looks-like">&#182;</a></h2><h2 id=".evtx-Conversion"><code>.evtx</code> Conversion<a class="anchor-link" href="#.evtx-Conversion">&#182;</a></h2><p>We will need to convert these <code>.evtx</code> files to something pandas can ingest.</p>
+<p>Under the hood, these log can be exported to XML files. Here is an example of what a single record from the event log looks like after being exported as XML.</p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;Event</span> <span class="na">xmlns=</span><span class="s">&quot;http://schemas.microsoft.com/win/2004/08/events/event&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;System&gt;</span>
+        <span class="nt">&lt;Provider</span> <span class="na">Name=</span><span class="s">&quot;Microsoft-Windows-Sysmon&quot;</span> <span class="na">Guid=</span><span class="s">&quot;{5770385f-c22a-43e0-bf4c-06f5698ffbd9}&quot;</span><span class="nt">&gt;&lt;/Provider&gt;</span>
+        <span class="nt">&lt;EventID</span> <span class="na">Qualifiers=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>1<span class="nt">&lt;/EventID&gt;</span>
+        <span class="nt">&lt;Version&gt;</span>5<span class="nt">&lt;/Version&gt;</span>
+        <span class="nt">&lt;Level&gt;</span>4<span class="nt">&lt;/Level&gt;</span>
+        <span class="nt">&lt;Task&gt;</span>1<span class="nt">&lt;/Task&gt;</span>
+        <span class="nt">&lt;Opcode&gt;</span>0<span class="nt">&lt;/Opcode&gt;</span>
+        <span class="nt">&lt;Keywords&gt;</span>0x8000000000000000<span class="nt">&lt;/Keywords&gt;</span>
+        <span class="nt">&lt;TimeCreated</span> <span class="na">SystemTime=</span><span class="s">&quot;2017-12-09 22:42:30.087566&quot;</span><span class="nt">&gt;&lt;/TimeCreated&gt;</span>
+        <span class="nt">&lt;EventRecordID&gt;</span>16949<span class="nt">&lt;/EventRecordID&gt;</span>
+        <span class="nt">&lt;Correlation</span> <span class="na">ActivityID=</span><span class="s">&quot;&quot;</span> <span class="na">RelatedActivityID=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;&lt;/Correlation&gt;</span>
+        <span class="nt">&lt;Execution</span> <span class="na">ProcessID=</span><span class="s">&quot;1572&quot;</span> <span class="na">ThreadID=</span><span class="s">&quot;2064&quot;</span><span class="nt">&gt;&lt;/Execution&gt;</span>
+        <span class="nt">&lt;Channel&gt;</span>Microsoft-Windows-Sysmon/Operational<span class="nt">&lt;/Channel&gt;</span>
+        <span class="nt">&lt;Computer&gt;</span>WIN-Q9JPOBVS95D<span class="nt">&lt;/Computer&gt;</span>
+        <span class="nt">&lt;Security</span> <span class="na">UserID=</span><span class="s">&quot;S-1-5-18&quot;</span><span class="nt">&gt;&lt;/Security&gt;</span>
+    <span class="nt">&lt;/System&gt;</span>
+    <span class="nt">&lt;EventData&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;UtcTime&quot;</span><span class="nt">&gt;</span>2017-12-09 22:42:30.071<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessGuid&quot;</span><span class="nt">&gt;</span>{1a8edbb7-66d6-5a2c-0000-001085b78300}<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ProcessId&quot;</span><span class="nt">&gt;</span>3908<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Image&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\wevtutil.exe<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CommandLine&quot;</span><span class="nt">&gt;</span>wevtutil  cl Microsoft-Windows-Sysmon/Operational<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;CurrentDirectory&quot;</span><span class="nt">&gt;</span>C:\Users\admin\<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;User&quot;</span><span class="nt">&gt;</span>WIN-Q9JPOBVS95D\admin<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonGuid&quot;</span><span class="nt">&gt;</span>{1a8edbb7-6699-5a2c-0000-002008f77900}<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;LogonId&quot;</span><span class="nt">&gt;</span>0x000000000079f708<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;TerminalSessionId&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;IntegrityLevel&quot;</span><span class="nt">&gt;</span>High<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;Hashes&quot;</span><span class="nt">&gt;</span>SHA256=0DD7D2A9E56AE356591C1792EFB68A90FD76A7787E0B597FCBC4EF1FA514B601,IMPHASH=5CEEBCE34342598E6A5DC5278D7D430D<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessGuid&quot;</span><span class="nt">&gt;</span>{1a8edbb7-66c5-5a2c-0000-001087628300}<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentProcessId&quot;</span><span class="nt">&gt;</span>2968<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentImage&quot;</span><span class="nt">&gt;</span>C:\Windows\System32\cmd.exe<span class="nt">&lt;/Data&gt;</span>
+        <span class="nt">&lt;Data</span> <span class="na">Name=</span><span class="s">&quot;ParentCommandLine&quot;</span><span class="nt">&gt;</span>&quot;C:\Windows\system32\cmd.exe&quot; <span class="nt">&lt;/Data&gt;</span>
+    <span class="nt">&lt;/EventData&gt;</span>
+<span class="nt">&lt;/Event&gt;</span>
+</pre></div>
+<h2 id=".evtx-Conversion"><code>.evtx</code> Conversion<a class="anchor-link" href="#.evtx-Conversion">&#182;</a></h2><p>We will need to convert these <code>.evtx</code> files to XML then to something pandas can ingest.</p>
 <p>We will be using a parsing library <a href="https://github.com/williballenthin/python-evtx">python-evtx</a> to work with these files.</p>
 <p>Let's try to convert a basic Sysmon event log into a dataframe. The sample file is available under <code>data/filetype_examples/Microsoft-Windows-Sysmon%4Operational.evtx</code></p>
 
@@ -11856,7 +11894,7 @@ Microsoft-Windows-Sysmon%4Operational.evtx: MS Windows Vista Event Log, <span cl
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[90]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pprint</span>
@@ -20235,7 +20273,7 @@ kiRJkiRJ0kJSkCdJkiRJkiRJC/l/Wau3oJLzHTUAAAAASUVORK5CYII=
 <p>Now this is interesting, it looks we usually talk over HTTP/S (443, and 80). This could prove useful later when we wish to classify as malware usually talks over very high ports.</p>
 <hr>
 <p>I think our baseline data is good enough. This represents the activity of a non power-user on a machine. They open some documents, create some files, and browse the internet. Let's create our malicious data now.</p>
-<h2 id="Creating-a-Malicious-dataset">Creating a Malicious dataset<a class="anchor-link" href="#Creating-a-Malicious-dataset">&#182;</a></h2><p>We have our labeled good data, now we need to create our malicious dataset. To do this I have created a set of python scripts that imitiate real world malware. These are all available under the <code>bin/malware/src</code> folder of the repository.</p>
+<h2 id="Creating-a-Malicious-dataset">Creating a Malicious dataset<a class="anchor-link" href="#Creating-a-Malicious-dataset">&#182;</a></h2><p>We have our labeled good data, now we need to create our malicious dataset. To do this I have created a set of python scripts (each one covered later on in the tutorial) that imitiate real world malware. These are all available under the <code>bin/malware/src</code> folder of the repository.</p>
 <p>Each malware extends a base class I created called <code>MalwareBase</code> which provides some functions to . We will be doing the following workflow to generate our malicious data:</p>
 <ol>
 <li>Compile a python malware using <a href="http://www.pyinstaller.org/">pyinstaller</a></li>
@@ -20247,7 +20285,7 @@ kiRJkiRJ0kJSkCdJkiRJkiRJC/l/Wau3oJLzHTUAAAAASUVORK5CYII=
 <ul>
 <li>If you wish to compile the binaries yourself, do so on a windows machine using <code>pyinstaller -p .. &lt;.py_to_compile&gt;</code>. The <code>-p ..</code> is required since I used the <code>malware</code> class which sits in the parent directory of all the actually "malicious" scripts and this forces <code>pyinstaller</code> to compile it as well.</li>
 </ul>
-<h3 id="Automating-the-Data-Generation-Pipeline">Automating the Data Generation Pipeline<a class="anchor-link" href="#Automating-the-Data-Generation-Pipeline">&#182;</a></h3><p>Since I wish to generate a sufficiently large dataset for my labeled malicious data, I want to be able to do this as quickly possible, and make it as dynamic as possible so in the future if I wish to create labeled data to model new malicious behavior I do not have to do it manually. The process mentioned above is tedious and time consuming, instead, I createed a script (available under <code>bin/utils</code>) which automates the 4 step process mentioned above.</p>
+<h3 id="Automating-the-Training-Data-Generation-Pipeline">Automating the Training Data Generation Pipeline<a class="anchor-link" href="#Automating-the-Training-Data-Generation-Pipeline">&#182;</a></h3><p>Since I wish to generate a sufficiently large dataset for my labeled malicious data, I want to be able to do this as quickly possible, and make it as dynamic as possible so in the future if I wish to create labeled data to model new malicious behavior I do not have to do it manually. The process mentioned above is tedious and time consuming, instead, I createed a script (available under <code>bin/utils</code>) which automates the 4 step process mentioned above.</p>
 <p>The script makes use of the a modified <a href="https://github.com/binjo/vmrun-python/blob/master/vmrun.py">vmrun</a> wrapper for the <code>vmrun</code> command we used earlier. I have included the modified version under <code>bin/utils/lib/vmrun.py</code>.</p>
 <p>It is available under as <code>bin/utils/vm_copy_run_reset.py</code> in the github repository.</p>
 <p>The script can be used using the following parameters:</p>
@@ -20262,7 +20300,7 @@ optional arguments:
                         script executes the first .exe it finds in this folder
                         on the VM
   --log_dir LOG_DIR     The directory to put the sysmon logs copied over
-                        after.the log files will be placed in $log_dir/&lt;time&gt;/
+                        after.the log files will be placed in &lt;log_dir&gt;/&lt;time&gt;/
   --times TIMES         Number of times to run the executable (default 1)
   --dest_path DEST_PATH
   --normal NORMAL       Run the executable with the provided name
@@ -20273,13 +20311,713 @@ optional arguments:
 
 <pre><code>python vm_copy_run_reset.py --path ../malware/dist/regkey_persistence
                             --log_dir ../../data/malicious_train/regkey_persist/
-                            --times 5
+                            --times 25
                             --dest_path C:\\users\\admin\\appdata\\local
                             --randomize</code></pre>
 <video src="static/vid/automated_log_collection.webm" width=1000 height="50%" controls>
-</video>
+</video><p>And we now have 25 sysmon logs representing 25 different executions of this malware.</p>
+<div class="highlight"><pre><span></span><span class="p">|</span> <span class="o">=</span>&gt; ls -laR
+total <span class="m">0</span>
+drwxr-xr-x  <span class="m">3</span> yampelo  staff   <span class="m">96</span> Dec  <span class="m">9</span> <span class="m">18</span>:34 .
+drwxr-xr-x  <span class="m">3</span> yampelo  staff   <span class="m">96</span> Dec  <span class="m">9</span> <span class="m">17</span>:56 ..
+drwxr-xr-x  <span class="m">7</span> yampelo  staff  <span class="m">224</span> Dec  <span class="m">9</span> <span class="m">18</span>:36 2017_12_09_23_34_21
+
+./2017_12_09_23_34_21:
+total <span class="m">10920</span>
+drwxr-xr-x  <span class="m">7</span> yampelo  staff      <span class="m">224</span> Dec  <span class="m">9</span> <span class="m">18</span>:36 .
+drwxr-xr-x  <span class="m">3</span> yampelo  staff       <span class="m">96</span> Dec  <span class="m">9</span> <span class="m">18</span>:34 ..
+-rwx------  <span class="m">1</span> yampelo  staff  <span class="m">1118208</span> Dec  <span class="m">9</span> <span class="m">18</span>:34 sysmon_log_1
+-rwx------  <span class="m">1</span> yampelo  staff  <span class="m">1118208</span> Dec  <span class="m">9</span> <span class="m">18</span>:34 sysmon_log_2
+-rwx------  <span class="m">1</span> yampelo  staff  <span class="m">1118208</span> Dec  <span class="m">9</span> <span class="m">18</span>:35 sysmon_log_3
+-rwx------  <span class="m">1</span> yampelo  staff  <span class="m">1118208</span> Dec  <span class="m">9</span> <span class="m">18</span>:35 sysmon_log_4
+-rwx------  <span class="m">1</span> yampelo  staff  <span class="m">1118208</span> Dec  <span class="m">9</span> <span class="m">18</span>:36 sysmon_log_5
+...
+</pre></div>
+<p>We can now write a simple function that takes in our folder and returns a list of all of the dataframes for that trial.</p>
+
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="k">def</span> <span class="nf">get_trial_dataframes</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an array of dataframes</span>
+<span class="sd">    </span>
+<span class="sd">    :param path: The path to the trial.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">log</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        
+        <span class="n">logs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sysmon_evtx_to_dataframe</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">log</span><span class="p">))</span>
+        
+    <span class="k">return</span> <span class="n">logs</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">reg_key_persist</span> <span class="o">=</span> <span class="n">get_trial_dataframes</span><span class="p">(</span><span class="s2">&quot;data/malicious_train/regkey_persist/2017_12_10_01_26_29&quot;</span><span class="p">)</span>
+
+<span class="n">reg_key_persist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[27]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Correlation</th>
+      <th>Correlation_ActivityID</th>
+      <th>Correlation_RelatedActivityID</th>
+      <th>EventData_CommandLine</th>
+      <th>EventData_CreationUtcTime</th>
+      <th>EventData_CurrentDirectory</th>
+      <th>EventData_DestinationHostname</th>
+      <th>EventData_DestinationIp</th>
+      <th>EventData_DestinationIsIpv6</th>
+      <th>EventData_DestinationPort</th>
+      <th>...</th>
+      <th>Execution</th>
+      <th>Execution_ProcessID</th>
+      <th>Execution_ThreadID</th>
+      <th>Provider</th>
+      <th>Provider_Guid</th>
+      <th>Provider_Name</th>
+      <th>Security</th>
+      <th>Security_UserID</th>
+      <th>TimeCreated</th>
+      <th>TimeCreated_SystemTime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>None</td>
+      <td></td>
+      <td></td>
+      <td>wevtutil  cl Microsoft-Windows-Sysmon/Operational</td>
+      <td>NaN</td>
+      <td>C:\Users\admin\</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>None</td>
+      <td>1572</td>
+      <td>2064</td>
+      <td>None</td>
+      <td>{5770385f-c22a-43e0-bf4c-06f5698ffbd9}</td>
+      <td>Microsoft-Windows-Sysmon</td>
+      <td>None</td>
+      <td>S-1-5-18</td>
+      <td>None</td>
+      <td>2017-12-09 22:42:30.087566</td>
+    </tr>
+  </tbody>
+</table>
+<p>1 rows × 52 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's create a Data frame to store our malicious data:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[117]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">malicious</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Writing-our-Malware">Writing our Malware<a class="anchor-link" href="#Writing-our-Malware">&#182;</a></h2><p>Let's actually find some malicious activity to mimick, run it through our automated data collection script, and explore the generated logs!</p>
+<h3 id="Registry---CurrentVersion\Run-Persistence">Registry - CurrentVersion\Run Persistence<a class="anchor-link" href="#Registry---CurrentVersion\Run-Persistence">&#182;</a></h3><p>The most popular method for malware to maintain persistence is through the <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/aa376977(v=vs.85">CurrentVersion\Run</a>.aspx) keys. The contents of this key are executed each time the user logs in. Let's used our <code>Malware</code> class to create malware that mimicks this activity. Below are actual malware samples that use this technique:</p>
+<ol>
+<li><a href="https://www.hybrid-analysis.com/sample/4f6e2423aabc8f46be5d33a621a3f906a516a626de76d494acd0b52d705a6370?environmentId=100#sample-analysis">TROJANDROPPER.WIN32.RANDREW.A.BIT</a></li>
+<li><a href="https://www.hybrid-analysis.com/sample/3a84a91e84d953fbb7811f85ab39aae351f1e8f88f64f74cf10a1e5a44bf049f?environmentId=100#sample-analysis">Win32.Trojan.WisdomEyes.16070401.9500.9994</a></li>
+</ol>
+<p>To do this, we used our <code>create_registry_key()</code> function with the following parameters:</p>
+<div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">create_registry_key</span><span class="p">(</span>
+    <span class="n">key</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">random_string</span><span class="p">(),</span> <span class="c1"># A random alphanumeric string</span>
+    <span class="n">value</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="c1"># The name of the program on the VM</span>
+    <span class="n">path</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;Software\Microsoft\Windows\CurrentVersion\Run&#39;</span><span class="p">,</span>
+    <span class="n">hive</span><span class="o">=</span><span class="n">winreg</span><span class="o">.</span><span class="n">HKEY_CURRENT_USER</span>
+<span class="p">)</span>
+</pre></div>
+<p>This is available under <code>bin/malware/generic/reg_key_persistence.py</code> and the executable under <code>/bin/malware/dist/reg_key_persistence/reg_key_persistence.exe</code></p>
+<p>The sysmon logs from running this 25 times with randomized executable names are available under <code>data/malicious_train/regkey_persist/2017_12_10_01_57_15</code></p>
+<p>These logs were generated using the same parameters show <a href="#Automating-the-Training-Data-Generation-Pipeline">here</a></p>
+<p>Let's see what this looks like. We will key in on the <code>Registry (Create Key)</code> and <code>Registry (Edit Value)</code></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[124]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The below are the EventIDs we are interested in.</span>
+<span class="sd">&quot;12&quot;:&quot;RegistryEvent (Object create and delete)&quot;,</span>
+<span class="sd">&quot;13&quot;:&quot;RegistryEvent (Value Set)&quot;,</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">reg_key_persist</span> <span class="o">=</span> <span class="n">get_trial_dataframes</span><span class="p">(</span><span class="s2">&quot;data/malicious_train/regkey_persist/2017_12_10_01_57_15&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[125]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">reg_key_persist</span><span class="p">:</span>
+    <span class="n">events_of_interest</span> <span class="o">=</span> <span class="n">frame</span><span class="p">[(</span><span class="n">frame</span><span class="o">.</span><span class="n">EventID</span> <span class="o">==</span> <span class="s2">&quot;12&quot;</span><span class="p">)</span> <span class="o">|</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">EventID</span> <span class="o">==</span> <span class="s2">&quot;13&quot;</span><span class="p">)]</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">events_of_interest</span><span class="p">)</span>
+
+<span class="n">combined</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;EventData_Image&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[125]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+    </tr>
+    <tr>
+      <th>EventData_Image</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>C:\Windows\System32\svchost.exe</th>
+      <td>1037</td>
+    </tr>
+    <tr>
+      <th>C:\Windows\system32\msiexec.exe</th>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>C:\Windows\system32\svchost.exe</th>
+      <td>594</td>
+    </tr>
+    <tr>
+      <th>C:\Windows\syswow64\MsiExec.exe</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\0jPI9Kb5TGj3cmGLEYdTP6.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\ADHumuCMVw1Lesid.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\CXIodS2Vuu7sgg0DOpb.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\EUSRyAUGswEIykFKcrOv.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\GIjrrE7gh5EPeZJ088A.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\HPIPDDAIXRJz4.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\IkrGhzit3U2nb.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\OX2Jv0lR3bLurcA9fs.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\PAKoI50NCtmQCOpk1E.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\PbvguIYJZ.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\Q7daMt04XARA5yQ8n.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\QBQzjSH5Hjy.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\Rby8xeQ9ErxA54boN.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\TnQ7NyIIGY2pTYr7ThBQHk5.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\Up06m36w4d9SNCoSzu8R6GtI.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\V2GWgJ3Efh8V6LZbUB.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\YRP1mMLn3S0.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\Yvq8uxlc3.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\bsFlTvKJdnOL0T1mywz5cSZg.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\gfb4ne7dmIaeC4n2avB4Uhv.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\hOJmzjm441BjE1C.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\hQOGjGr9bgEfAS.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\mIWbAF6Gacff9GQK.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\nBzhesRz2xGDrHbXtFj.exe</th>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>C:\users\admin\appdata\local\xDtuWYohkn.exe</th>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Looks like our tool worked! our malicious processes are right there. Let's see what sysmon picked up on them doing. We can narrow down on just events in appdata local using the following code.</p>
+<p>The following columns represent the following data:</p>
+<ol>
+<li><code>EventData_Image</code> $\rightarrow$ The process setting the registry key </li>
+<li><code>EventData_TargetObject</code> $\rightarrow$ The registry key being set (i extract the relevant part as reg_key)</li>
+<li><code>EventData_Details</code> $\rightarrow$ The contents of the registry key </li>
+</ol>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[126]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Split out the path</span>
+<span class="n">combined</span><span class="p">[</span><span class="s1">&#39;path&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;EventData_Image&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<span class="p">)</span>
+
+<span class="n">combined</span><span class="p">[</span><span class="s1">&#39;reg_key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;EventData_TargetObject&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">4</span><span class="p">:])</span>
+<span class="p">)</span>
+
+<span class="c1"># Narrow down on just the path</span>
+<span class="n">malware</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="n">combined</span><span class="o">.</span><span class="n">path</span> <span class="o">==</span> <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">users</span><span class="se">\\</span><span class="s2">admin</span><span class="se">\\</span><span class="s2">appdata</span><span class="se">\\</span><span class="s2">local&quot;</span><span class="p">]</span>
+
+<span class="n">malware</span><span class="p">[[</span><span class="s2">&quot;EventData_Image&quot;</span><span class="p">,</span> <span class="s2">&quot;reg_key&quot;</span><span class="p">,</span> <span class="s2">&quot;EventData_Details&quot;</span><span class="p">]]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[126]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>EventData_Image</th>
+      <th>reg_key</th>
+      <th>EventData_Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>94</th>
+      <td>C:\users\admin\appdata\local\OX2Jv0lR3bLurcA9f...</td>
+      <td>Windows\CurrentVersion\Run\QaMdBrpv</td>
+      <td>C:\users\admin\appdata\local\OX2Jv0lR3bLurcA9f...</td>
+    </tr>
+    <tr>
+      <th>107</th>
+      <td>C:\users\admin\appdata\local\hQOGjGr9bgEfAS.exe</td>
+      <td>Windows\CurrentVersion\Run\Q5NgRIXxL0hmsyF36aC08Q</td>
+      <td>C:\users\admin\appdata\local\hQOGjGr9bgEfAS.exe</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>C:\users\admin\appdata\local\CXIodS2Vuu7sgg0DO...</td>
+      <td>Windows\CurrentVersion\Run\Hq1pdEJzNF</td>
+      <td>C:\users\admin\appdata\local\CXIodS2Vuu7sgg0DO...</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>C:\users\admin\appdata\local\0jPI9Kb5TGj3cmGLE...</td>
+      <td>Windows\CurrentVersion\Run\yAeacJWS2Vso</td>
+      <td>C:\users\admin\appdata\local\0jPI9Kb5TGj3cmGLE...</td>
+    </tr>
+    <tr>
+      <th>104</th>
+      <td>C:\users\admin\appdata\local\YRP1mMLn3S0.exe</td>
+      <td>Windows\CurrentVersion\Run\qMvmPjMKiC2H9YC6lh</td>
+      <td>C:\users\admin\appdata\local\YRP1mMLn3S0.exe</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>C:\users\admin\appdata\local\IkrGhzit3U2nb.exe</td>
+      <td>Windows\CurrentVersion\Run\9n7llzAtFLLtmnlzFQC...</td>
+      <td>C:\users\admin\appdata\local\IkrGhzit3U2nb.exe</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>C:\users\admin\appdata\local\TnQ7NyIIGY2pTYr7T...</td>
+      <td>Windows\CurrentVersion\Run\KRWWvpqh</td>
+      <td>C:\users\admin\appdata\local\TnQ7NyIIGY2pTYr7T...</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>C:\users\admin\appdata\local\PbvguIYJZ.exe</td>
+      <td>Windows\CurrentVersion\Run\ztTAvZv9PTCDngkD8</td>
+      <td>C:\users\admin\appdata\local\PbvguIYJZ.exe</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>C:\users\admin\appdata\local\Rby8xeQ9ErxA54boN...</td>
+      <td>Windows\CurrentVersion\Run\w1luiF9QJCzdn4XjqR2KX</td>
+      <td>C:\users\admin\appdata\local\Rby8xeQ9ErxA54boN...</td>
+    </tr>
+    <tr>
+      <th>104</th>
+      <td>C:\users\admin\appdata\local\HPIPDDAIXRJz4.exe</td>
+      <td>Windows\CurrentVersion\Run\UmvhN5orEBMaxeSor9</td>
+      <td>C:\users\admin\appdata\local\HPIPDDAIXRJz4.exe</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>C:\users\admin\appdata\local\PAKoI50NCtmQCOpk1...</td>
+      <td>Windows\CurrentVersion\Run\2eiDFPc0</td>
+      <td>C:\users\admin\appdata\local\PAKoI50NCtmQCOpk1...</td>
+    </tr>
+    <tr>
+      <th>104</th>
+      <td>C:\users\admin\appdata\local\mIWbAF6Gacff9GQK.exe</td>
+      <td>Windows\CurrentVersion\Run\8wWesTptEZDEmKmnp</td>
+      <td>C:\users\admin\appdata\local\mIWbAF6Gacff9GQK.exe</td>
+    </tr>
+    <tr>
+      <th>96</th>
+      <td>C:\users\admin\appdata\local\V2GWgJ3Efh8V6LZbU...</td>
+      <td>Windows\CurrentVersion\Run\kEDa9WMaVBhA4</td>
+      <td>C:\users\admin\appdata\local\V2GWgJ3Efh8V6LZbU...</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>C:\users\admin\appdata\local\Up06m36w4d9SNCoSz...</td>
+      <td>Windows\CurrentVersion\Run\oZG3WrAgAKGy</td>
+      <td>C:\users\admin\appdata\local\Up06m36w4d9SNCoSz...</td>
+    </tr>
+    <tr>
+      <th>99</th>
+      <td>C:\users\admin\appdata\local\gfb4ne7dmIaeC4n2a...</td>
+      <td>Windows\CurrentVersion\Run\49I6EMnUiBbwPNhTvh3...</td>
+      <td>C:\users\admin\appdata\local\gfb4ne7dmIaeC4n2a...</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>C:\users\admin\appdata\local\GIjrrE7gh5EPeZJ08...</td>
+      <td>Windows\CurrentVersion\Run\FSIHfCZFNaBVAnAOt4</td>
+      <td>C:\users\admin\appdata\local\GIjrrE7gh5EPeZJ08...</td>
+    </tr>
+    <tr>
+      <th>102</th>
+      <td>C:\users\admin\appdata\local\bsFlTvKJdnOL0T1my...</td>
+      <td>Windows\CurrentVersion\Run\FoCTgSjtN</td>
+      <td>C:\users\admin\appdata\local\bsFlTvKJdnOL0T1my...</td>
+    </tr>
+    <tr>
+      <th>106</th>
+      <td>C:\users\admin\appdata\local\Q7daMt04XARA5yQ8n...</td>
+      <td>Windows\CurrentVersion\Run\hR5GVx1wAEMBCGX</td>
+      <td>C:\users\admin\appdata\local\Q7daMt04XARA5yQ8n...</td>
+    </tr>
+    <tr>
+      <th>95</th>
+      <td>C:\users\admin\appdata\local\hOJmzjm441BjE1C.exe</td>
+      <td>Windows\CurrentVersion\Run\yz9bEY4PR</td>
+      <td>C:\users\admin\appdata\local\hOJmzjm441BjE1C.exe</td>
+    </tr>
+    <tr>
+      <th>103</th>
+      <td>C:\users\admin\appdata\local\Yvq8uxlc3.exe</td>
+      <td>Windows\CurrentVersion\Run\GRM3gRpYut</td>
+      <td>C:\users\admin\appdata\local\Yvq8uxlc3.exe</td>
+    </tr>
+    <tr>
+      <th>98</th>
+      <td>C:\users\admin\appdata\local\ADHumuCMVw1Lesid.exe</td>
+      <td>Windows\CurrentVersion\Run\AbN7P6x6GHOPjyhgDU7...</td>
+      <td>C:\users\admin\appdata\local\ADHumuCMVw1Lesid.exe</td>
+    </tr>
+    <tr>
+      <th>100</th>
+      <td>C:\users\admin\appdata\local\EUSRyAUGswEIykFKc...</td>
+      <td>Windows\CurrentVersion\Run\bpSlUUGyWx0Ocp73Ehf...</td>
+      <td>C:\users\admin\appdata\local\EUSRyAUGswEIykFKc...</td>
+    </tr>
+    <tr>
+      <th>94</th>
+      <td>C:\users\admin\appdata\local\xDtuWYohkn.exe</td>
+      <td>Windows\CurrentVersion\Run\s0xZMeeopSyGNPOS</td>
+      <td>C:\users\admin\appdata\local\xDtuWYohkn.exe</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>C:\users\admin\appdata\local\QBQzjSH5Hjy.exe</td>
+      <td>Windows\CurrentVersion\Run\5raSR0UYRJNrCCOv</td>
+      <td>C:\users\admin\appdata\local\QBQzjSH5Hjy.exe</td>
+    </tr>
+    <tr>
+      <th>93</th>
+      <td>C:\users\admin\appdata\local\nBzhesRz2xGDrHbXt...</td>
+      <td>Windows\CurrentVersion\Run\Zk5HVK45dacK</td>
+      <td>C:\users\admin\appdata\local\nBzhesRz2xGDrHbXt...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's add this to our training data and give it a description</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[127]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># I grab the events from the original frames before any apply commands since</span>
+<span class="c1"># I want to be able to just load any sysmon log and classify it through a single function</span>
+<span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">reg_key_persist</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s1">&#39;appdata</span><span class="se">\\</span><span class="s1">local&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">row</span><span class="o">.</span><span class="n">EventData_Details</span><span class="p">):</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;malware&#39;</span>
+            <span class="n">row</span><span class="p">[</span><span class="s1">&#39;label_desc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;persistence via registry key&quot;</span>
+            <span class="n">malicious</span> <span class="o">=</span> <span class="n">malicious</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Scheduled-Tasks---Timed-Execution">Scheduled Tasks - Timed Execution<a class="anchor-link" href="#Scheduled-Tasks---Timed-Execution">&#182;</a></h2><p>Another very popular method for malware to execute it self is through scheduled tasks. The windows scheduled task broker can be used to launch an executable every minute, hour, day, or even on boot. All the flags can be seen <a href="https://technet.microsoft.com/en-us/library/bb490996.aspx">here</a>.</p>
+<p>Malware will typically use the <code>onstart</code> parameter to do cause the malware to run on boot. Here are some examples of malware doing this:</p>
+<ol>
+<li><a href="https://www.hybrid-analysis.com/sample/d71fadcc29771da01fd38545a7011e642ec003d03ec789b8cb11a99ef84e85b9?environmentId=100#sample-analysis">Trojan-Banker.Win32.Delf.ggam</a></li>
+<li><a href="https://www.hybrid-analysis.com/sample/b5a0202b7c5eec95594754716c38a2d64bacddcfb05bb52928b32cbcc8950f15?environmentId=100#sample-analysis">Trojan.MSIL.Zyklon</a></li>
+</ol>
+<p>Let's recreate this behavior using our <code>Malware</code> class. I wrote a function called <code>create_scheduled_tasks</code> that creates a scheduled task by invoking the <a href="https://technet.microsoft.com/en-us/library/bb490996.aspx"><code>schtasks.exe</code></a> executable.</p>
+<div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">create_scheduled_task</span><span class="p">(</span>
+        <span class="n">name</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_string</span><span class="p">(),</span> <span class="c1"># Randomally named task</span>
+        <span class="nb">file</span><span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span>       <span class="c1"># Executable</span>
+        <span class="n">freq_cmd</span> <span class="o">=</span> <span class="s2">&quot;onstart&quot;</span><span class="p">,</span>       <span class="c1"># Launch on boot</span>
+    <span class="p">)</span>
+</pre></div>
+<p>This is available under <code>bin/malware/generic/task_persistence.py</code> and the compiled executable under <code>/bin/malware/dist/task_persistence/task_persistence.exe</code></p>
+<p>The sysmon logs from running this 25 times with randomized executable names are available under <code>data/malicious_train/task_persistence/2017_12_10_02_20_09/</code></p>
+<p>The logs were generated using the following parameters to <code>vm_run_copy_reset.py</code></p>
+<div class="highlight"><pre><span></span>python vm_copy_run_reset.py --path ../malware/dist/task_persistence
+                            --log_dir ../../data/malicious_train/task_persist
+                            --times <span class="m">25</span>
+                            --dest_path C:<span class="se">\\</span>users<span class="se">\\</span>admin<span class="se">\\</span>appdata<span class="se">\\</span><span class="nb">local</span>
+                            --randomize
+</pre></div>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[128]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">task_persist</span> <span class="o">=</span> <span class="n">get_trial_dataframes</span><span class="p">(</span><span class="s2">&quot;data/malicious_train/task_persistence/2017_12_10_02_20_09&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>
