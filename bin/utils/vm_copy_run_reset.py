@@ -1,10 +1,10 @@
 import argparse
 import configparser
+import datetime
 import os
 import random
 import string
-import datetime
-
+import time
 from lib.vmrun import vmrun
 
 
@@ -65,6 +65,10 @@ class Runner:
             assert(self.vm.runProgramInGuest(f"\"{file_to_run}\"", "i") == [])
 
             print(f"[*] Succesfully ran {file_to_run}")
+
+            print("[*] Sleeping 30 seconds to allow for execution")
+
+            time.sleep(30)
 
             print(f"[*] Grabbing Sysmon logs for run #{time+1}")
 
