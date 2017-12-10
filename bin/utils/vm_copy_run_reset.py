@@ -4,7 +4,8 @@ import datetime
 import os
 import random
 import string
-import time
+
+from time import sleep
 from lib.vmrun import vmrun
 
 
@@ -68,7 +69,7 @@ class Runner:
 
             print("[*] Sleeping 30 seconds to allow for execution")
 
-            time.sleep(30)
+            sleep(30)
 
             print(f"[*] Grabbing Sysmon logs for run #{time+1}")
 
